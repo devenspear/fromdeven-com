@@ -1,25 +1,27 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
+import { useRouter, useParams } from "next/navigation";
 import { AnimatePresence, motion } from "framer-motion";
-import { isValidated } from "@/lib/validation";
+import { validateInviteCode } from "@/lib/validation";
 import { EnvelopeAnimation } from "@/components/card/EnvelopeAnimation";
 import { CardContent } from "@/components/card/CardContent";
 
 export default function CardPage() {
   const router = useRouter();
+  const params = useParams();
   const [showCard, setShowCard] = useState(false);
   const [isAuthorized, setIsAuthorized] = useState(false);
 
   useEffect(() => {
-    // Check if user is validated
-    if (!isValidated()) {
+    // Validate the code from the URL parameter
+    const code = params.code as string;
+    if (!code || !validateInviteCode(code)) {
       router.replace("/");
     } else {
       setIsAuthorized(true);
     }
-  }, [router]);
+  }, [router, params]);
 
   const handleAnimationComplete = () => {
     setShowCard(true);
@@ -31,7 +33,12 @@ export default function CardPage() {
   }
 
   return (
-    <div className="min-h-screen bg-background relative">
+    <motion.div
+      className="min-h-screen bg-background relative"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.8, ease: "easeInOut" }}
+    >
       <AnimatePresence mode="wait">
         {!showCard ? (
           <motion.div
@@ -55,6 +62,6 @@ export default function CardPage() {
           </motion.div>
         )}
       </AnimatePresence>
-    </div>
+    </motion.div>
   );
 }

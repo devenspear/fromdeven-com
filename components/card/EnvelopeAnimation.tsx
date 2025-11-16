@@ -13,10 +13,10 @@ export function EnvelopeAnimation({ onComplete }: EnvelopeAnimationProps) {
   const [animationStarted, setAnimationStarted] = useState(false);
 
   useEffect(() => {
-    // Start animation after 1 second
+    // Start animation immediately (envelope appears)
     const timer = setTimeout(() => {
       setAnimationStarted(true);
-    }, 1000);
+    }, 500);
 
     return () => clearTimeout(timer);
   }, []);
@@ -65,8 +65,8 @@ export function EnvelopeAnimation({ onComplete }: EnvelopeAnimationProps) {
             zIndex: 1
           }}
         >
-          {/* Text positioned in upper area (will be revealed when flap opens) */}
-          <div className="absolute top-8 left-0 right-0 flex items-center justify-center px-8">
+          {/* Text positioned in lower half (below the flap, always visible) */}
+          <div className="absolute bottom-0 left-0 right-0 h-1/2 flex items-center justify-center px-8">
             <div className="text-center w-full">
               <motion.p
                 initial={{ opacity: 0 }}
@@ -88,13 +88,13 @@ export function EnvelopeAnimation({ onComplete }: EnvelopeAnimationProps) {
           </div>
         </motion.div>
 
-        {/* Envelope flap - positioned above text */}
+        {/* Envelope flap - hold for 1 second then open */}
         <motion.div
           initial={{ rotateX: 0 }}
           animate={
             animationStarted ? { rotateX: -180 } : { rotateX: 0 }
           }
-          transition={{ delay: 1.2, duration: 0.8, ease: "easeInOut" }}
+          transition={{ delay: 2.2, duration: 0.8, ease: "easeInOut" }}
           onAnimationComplete={() => {
             setTimeout(() => onComplete(), 800);
           }}
@@ -122,7 +122,7 @@ export function EnvelopeAnimation({ onComplete }: EnvelopeAnimationProps) {
               ? { y: -20, opacity: 0.3 }
               : { y: 0, opacity: 0 }
           }
-          transition={{ delay: 1.5, duration: 0.6 }}
+          transition={{ delay: 2.5, duration: 0.6 }}
           className="absolute inset-x-0 top-0 h-3/4 bg-card rounded-sm mx-8 shadow-lg"
           style={{ zIndex: 0 }}
         />

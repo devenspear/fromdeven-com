@@ -9,6 +9,7 @@ export function InviteGate() {
   const [code, setCode] = useState("");
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [isExiting, setIsExiting] = useState(false);
   const router = useRouter();
 
   useEffect(() => {
@@ -35,7 +36,12 @@ export function InviteGate() {
 
     if (isValid) {
       setValidated();
-      router.push("/card");
+      // Start fade-out animation
+      setIsExiting(true);
+      // Wait for fade-out before navigating
+      await new Promise((resolve) => setTimeout(resolve, 800));
+      // Navigate to the code-specific route
+      router.push(`/${code.trim()}`);
     } else {
       setError("That code doesn't ring a bell. Please try again.");
       setIsLoading(false);
@@ -43,7 +49,12 @@ export function InviteGate() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center paper-texture vignette px-4">
+    <motion.div
+      className="min-h-screen flex items-center justify-center paper-texture vignette px-4"
+      initial={{ opacity: 1 }}
+      animate={{ opacity: isExiting ? 0 : 1 }}
+      transition={{ duration: 0.8, ease: "easeInOut" }}
+    >
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -149,6 +160,6 @@ export function InviteGate() {
           </p>
         </div>
       </motion.div>
-    </div>
+    </motion.div>
   );
 }

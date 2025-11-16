@@ -11,7 +11,7 @@ export const CARD_CONTENT = {
   subtitle: "A Week at Crafted · November 2025",
 
   // Greeting
-  greeting: "Hi Stacey,",
+  greeting: "Hi Stacy,",
 
   // Poem stanzas - will be interspersed with photos
   stanzas: [
@@ -23,13 +23,13 @@ export const CARD_CONTENT = {
 
     "Your marketer's mind, your host's warm art,\nSomehow speak right to the heart.\nYou made the schedule, crowds, and pace\nStill feel like time in sacred space.",
 
-    "For every intro, thought, and tour,\nFor letting us see a bit *more* —\nOf how you nurture this coastal dream,\nOne guest, one story, one brilliant scheme…",
+    "You welcomed us with such sweet grace,\nA VIP embrace in every space.\nThe stay, the care, the thoughtful touch—\nYou made us feel like we mattered *so* much.",
 
     "We leave inspired, and grateful too,\nFor Crafted, Alys, and for you.\nIf ever we can help or share,\nJust say the word — we'll *be* there."
   ],
 
   // Closing signature
-  closing: "With deep appreciation,\nDeven & Nancy Jo",
+  closing: "With deep appreciation,\n\nDeven & Nancy Jo",
 
   // Photos to be interspersed with text
   // Position indicates where in the flow (0 = before first stanza, 1 = after first stanza, etc.)
@@ -41,19 +41,19 @@ export const CARD_CONTENT = {
       caption: undefined as string | undefined
     },
     {
-      src: "/card-photos/Crafted2.jpg",
+      src: "/card-photos/Crafted3.jpg",
       alt: "Moments at Crafted",
       position: "right",
       caption: undefined as string | undefined
     },
     {
-      src: "/card-photos/Crafted3.jpg",
+      src: "/card-photos/Crafted4.jpg",
       alt: "Crafted experiences",
       position: "left",
       caption: undefined as string | undefined
     },
     {
-      src: "/card-photos/Crafted4.jpg",
+      src: "/card-photos/Crafted5.jpg",
       alt: "Crafted atmosphere",
       position: "right",
       caption: undefined as string | undefined
