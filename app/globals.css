@@ -1,0 +1,246 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=DM+Sans:wght@300;400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --font-playfair: 'Playfair Display', serif;
+  --font-body: 'DM Sans', sans-serif;
+  --font-accent: 'Space Grotesk', sans-serif;
+}
+
+@layer base {
+  html {
+    @apply antialiased;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    @apply bg-background text-text-primary;
+    font-family: var(--font-body);
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  .text-pretty {
+    text-wrap: pretty;
+  }
+
+  .paper-texture {
+    background-image:
+      radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.05) 0%, transparent 100%),
+      repeating-linear-gradient(
+        0deg,
+        rgba(0, 0, 0, 0.02) 0px,
+        transparent 1px,
+        transparent 2px,
+        rgba(0, 0, 0, 0.02) 3px
+      );
+  }
+
+  /* Fluid Typography - refined for better line breaks */
+  .fluid-title {
+    font-size: clamp(2rem, 5vw + 1rem, 4.5rem);
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+  }
+
+  .fluid-subtitle {
+    font-size: clamp(0.875rem, 0.5vw + 0.75rem, 1.125rem);
+    line-height: 1.5;
+  }
+
+  .fluid-body {
+    font-size: clamp(1rem, 0.5vw + 0.875rem, 1.375rem);
+    line-height: 1.8;
+    letter-spacing: 0.01em;
+  }
+
+  .fluid-greeting {
+    font-size: clamp(1.125rem, 0.75vw + 0.875rem, 1.5rem);
+    line-height: 1.6;
+  }
+
+  .card-shadow {
+    box-shadow:
+      0 2px 8px rgba(0, 0, 0, 0.04),
+      0 8px 24px rgba(0, 0, 0, 0.06),
+      0 16px 48px rgba(0, 0, 0, 0.08);
+  }
+
+  .vignette {
+    background: radial-gradient(
+      ellipse at center,
+      transparent 0%,
+      transparent 60%,
+      rgba(0, 0, 0, 0.05) 100%
+    );
+  }
+}
+
+/* Smooth scrolling */
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+/* Reduced motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Polaroid Photo Styling - Responsive and Container-Aware */
+.polaroid-photo {
+  /* Base sizing - scales with container, not viewport */
+  width: clamp(140px, 28%, 300px);
+  margin-top: 0.25em; /* em units scale with text */
+  transition: width 0.3s ease;
+}
+
+/* Small mobile: Stack photos, don't float */
+@media (max-width: 480px) {
+  .polaroid-photo {
+    float: none !important;
+    width: min(85%, 240px);
+    margin: 1.5em auto;
+    display: block;
+  }
+
+  .polaroid-photo.float-left,
+  .polaroid-photo.float-right {
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+/* Medium mobile: Smaller floated photos */
+@media (min-width: 481px) and (max-width: 768px) {
+  .polaroid-photo {
+    width: clamp(160px, 32%, 220px);
+  }
+
+  .polaroid-photo.float-left {
+    margin-right: clamp(1rem, 3%, 2rem);
+  }
+
+  .polaroid-photo.float-right {
+    margin-left: clamp(1rem, 3%, 2rem);
+  }
+}
+
+/* Tablet: Balanced photo size */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .polaroid-photo {
+    width: clamp(180px, 30%, 260px);
+  }
+
+  .polaroid-photo.float-left {
+    margin-right: clamp(1.5rem, 4%, 2.5rem);
+  }
+
+  .polaroid-photo.float-right {
+    margin-left: clamp(1.5rem, 4%, 2.5rem);
+  }
+}
+
+/* Desktop: Larger photos with generous spacing */
+@media (min-width: 1025px) {
+  .polaroid-photo {
+    width: clamp(220px, 28%, 300px);
+  }
+
+  .polaroid-photo.float-left {
+    margin-right: clamp(2rem, 5%, 3rem);
+  }
+
+  .polaroid-photo.float-right {
+    margin-left: clamp(2rem, 5%, 3rem);
+  }
+}
+
+.polaroid-frame {
+  background: white;
+  padding: 12px;
+  padding-bottom: 40px;
+  box-shadow:
+    0 4px 6px rgba(0, 0, 0, 0.1),
+    0 8px 16px rgba(0, 0, 0, 0.08),
+    0 12px 24px rgba(0, 0, 0, 0.06);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  rotate: 0deg;
+}
+
+.polaroid-photo:nth-child(odd) .polaroid-frame {
+  rotate: -2deg;
+}
+
+.polaroid-photo:nth-child(even) .polaroid-frame {
+  rotate: 2deg;
+}
+
+.polaroid-photo:hover .polaroid-frame {
+  transform: scale(1.05) translateY(-4px);
+  box-shadow:
+    0 8px 12px rgba(0, 0, 0, 0.12),
+    0 16px 32px rgba(0, 0, 0, 0.1),
+    0 24px 48px rgba(0, 0, 0, 0.08);
+}
+
+.polaroid-image-container {
+  width: 100%;
+  aspect-ratio: 1;
+  overflow: hidden;
+  background: #f0f0f0;
+}
+
+.polaroid-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+/* Italic text in poem (for emphasis) */
+.poem-text em {
+  font-style: italic;
+}
+
+/* Text flow improvements */
+.poem-text {
+  /* Better word spacing for justified text */
+  word-spacing: 0.05em;
+
+  /* Prevent widows and orphans */
+  orphans: 3;
+  widows: 3;
+}
+
+/* Disable justification on very small screens to avoid awkward gaps */
+@media (max-width: 480px) {
+  .poem-text {
+    text-align: left !important;
+  }
+}
+
+/* Stanza bottom margin control */
+.poem-text > div {
+  margin-bottom: clamp(1.5em, 3vw, 2.5em);
+}
+
+/* Individual line spacing within stanzas */
+.poem-text p {
+  margin-bottom: 0.4em;
+}
