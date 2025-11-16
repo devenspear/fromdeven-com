@@ -3,7 +3,7 @@
 import { motion } from "framer-motion";
 import { CARD_CONTENT } from "@/config/cardContent";
 import { PolaroidPhoto } from "./PolaroidPhoto";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 
 // Helper function to convert markdown-style italics to HTML
 function formatPoem(text: string): React.ReactNode {
@@ -18,6 +18,8 @@ function formatPoem(text: string): React.ReactNode {
 
 export function CardContent() {
   const [showContent, setShowContent] = useState(false);
+  const [fontSize, setFontSize] = useState<number>(1);
+  const articleRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
     // Reveal entire content 1 second after component mounts
@@ -28,9 +30,51 @@ export function CardContent() {
     return () => clearTimeout(timer);
   }, []);
 
+  useEffect(() => {
+    // Calculate optimal font size based on container width
+    const calculateOptimalFontSize = () => {
+      if (!articleRef.current) return;
+
+      const containerWidth = articleRef.current.offsetWidth;
+      const padding = window.innerWidth < 768 ? 48 : window.innerWidth < 1024 ? 80 : 128;
+      const availableWidth = containerWidth - padding;
+
+      // Optimal reading line length is 45-75 characters
+      // Average character width is ~0.5em for most fonts
+      // Calculate font size to achieve optimal line measure
+      let optimalSize: number;
+
+      if (window.innerWidth < 480) {
+        // Mobile: prioritize readability
+        optimalSize = Math.max(16, Math.min(18, availableWidth / 25));
+      } else if (window.innerWidth < 768) {
+        // Tablet small: balanced
+        optimalSize = Math.max(17, Math.min(20, availableWidth / 28));
+      } else if (window.innerWidth < 1024) {
+        // Tablet large: more generous
+        optimalSize = Math.max(18, Math.min(22, availableWidth / 32));
+      } else {
+        // Desktop: optimal reading experience
+        optimalSize = Math.max(19, Math.min(24, availableWidth / 35));
+      }
+
+      setFontSize(optimalSize);
+    };
+
+    calculateOptimalFontSize();
+
+    const resizeObserver = new ResizeObserver(calculateOptimalFontSize);
+    if (articleRef.current) {
+      resizeObserver.observe(articleRef.current);
+    }
+
+    return () => resizeObserver.disconnect();
+  }, [showContent]);
+
   return (
     <div className="min-h-screen py-8 md:py-12 lg:py-16 px-4 md:px-6 lg:px-8 paper-texture">
       <motion.article
+        ref={articleRef}
         initial={{ opacity: 0 }}
         animate={{ opacity: showContent ? 1 : 0 }}
         transition={{ duration: 0.8, ease: "easeOut" }}
@@ -69,10 +113,13 @@ export function CardContent() {
         )}
 
         {/* Poem with strategically placed photos */}
-        <div className="poem-text text-text-primary fluid-body font-light text-pretty" style={{
+        <div className="poem-text text-text-primary font-light text-pretty" style={{
+          fontSize: `${fontSize}px`,
+          lineHeight: '1.8',
           textAlign: 'justify',
           textJustify: 'inter-word',
-          hyphens: 'auto'
+          hyphens: 'auto',
+          transition: 'font-size 0.3s ease'
         }}>
           {/* Stanza 0 with Photo 0 (left) */}
           {CARD_CONTENT.photos[0] && (

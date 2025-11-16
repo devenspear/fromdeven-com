@@ -62,10 +62,11 @@ export function EnvelopeAnimation({ onComplete }: EnvelopeAnimationProps) {
           style={{
             boxShadow:
               "0 20px 60px rgba(0,0,0,0.15), 0 10px 30px rgba(0,0,0,0.1)",
+            zIndex: 1
           }}
         >
-          {/* Envelope back - centered content */}
-          <div className="absolute inset-0 flex items-center justify-center p-8">
+          {/* Text positioned in upper area (will be revealed when flap opens) */}
+          <div className="absolute top-8 left-0 right-0 flex items-center justify-center px-8">
             <div className="text-center w-full">
               <motion.p
                 initial={{ opacity: 0 }}
@@ -87,7 +88,7 @@ export function EnvelopeAnimation({ onComplete }: EnvelopeAnimationProps) {
           </div>
         </motion.div>
 
-        {/* Envelope flap */}
+        {/* Envelope flap - positioned above text */}
         <motion.div
           initial={{ rotateX: 0 }}
           animate={
@@ -101,6 +102,7 @@ export function EnvelopeAnimation({ onComplete }: EnvelopeAnimationProps) {
           style={{
             transformStyle: "preserve-3d",
             backfaceVisibility: "hidden",
+            zIndex: 2
           }}
         >
           <div
@@ -122,6 +124,7 @@ export function EnvelopeAnimation({ onComplete }: EnvelopeAnimationProps) {
           }
           transition={{ delay: 1.5, duration: 0.6 }}
           className="absolute inset-x-0 top-0 h-3/4 bg-card rounded-sm mx-8 shadow-lg"
+          style={{ zIndex: 0 }}
         />
       </div>
     </div>
