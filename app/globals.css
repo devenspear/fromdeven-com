@@ -159,15 +159,32 @@
 /* Desktop: Larger photos with generous spacing */
 @media (min-width: 1025px) {
   .polaroid-photo {
-    width: clamp(220px, 28%, 300px);
+    width: clamp(240px, 30%, 320px);
   }
 
   .polaroid-photo.float-left {
-    margin-right: clamp(2rem, 5%, 3rem);
+    margin-right: clamp(2rem, 4.5%, 3.5rem);
+    margin-bottom: 1.5em;
   }
 
   .polaroid-photo.float-right {
-    margin-left: clamp(2rem, 5%, 3rem);
+    margin-left: clamp(2rem, 4.5%, 3.5rem);
+    margin-bottom: 1.5em;
+  }
+}
+
+/* Large desktop: Maximum photo size */
+@media (min-width: 1440px) {
+  .polaroid-photo {
+    width: clamp(260px, 32%, 340px);
+  }
+
+  .polaroid-photo.float-left {
+    margin-right: clamp(2.5rem, 5%, 4rem);
+  }
+
+  .polaroid-photo.float-right {
+    margin-left: clamp(2.5rem, 5%, 4rem);
   }
 }
 
@@ -242,5 +259,16 @@
 
 /* Individual line spacing within stanzas */
 .poem-text p {
-  margin-bottom: 0.4em;
+  margin-bottom: 0.45em;
+}
+
+/* Enhanced spacing for larger screens */
+@media (min-width: 1024px) {
+  .poem-text > div {
+    margin-bottom: clamp(2em, 3.5vw, 3em);
+  }
+
+  .poem-text p {
+    margin-bottom: 0.5em;
+  }
 }

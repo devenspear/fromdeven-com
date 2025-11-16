@@ -36,26 +36,26 @@ export function CardContent() {
       if (!articleRef.current) return;
 
       const containerWidth = articleRef.current.offsetWidth;
-      const padding = window.innerWidth < 768 ? 48 : window.innerWidth < 1024 ? 80 : 128;
-      const availableWidth = containerWidth - padding;
+      const windowWidth = window.innerWidth;
 
-      // Optimal reading line length is 45-75 characters
-      // Average character width is ~0.5em for most fonts
-      // Calculate font size to achieve optimal line measure
+      // Calculate optimal font size based on viewport
       let optimalSize: number;
 
-      if (window.innerWidth < 480) {
+      if (windowWidth < 480) {
         // Mobile: prioritize readability
-        optimalSize = Math.max(16, Math.min(18, availableWidth / 25));
-      } else if (window.innerWidth < 768) {
+        optimalSize = 16;
+      } else if (windowWidth < 768) {
         // Tablet small: balanced
-        optimalSize = Math.max(17, Math.min(20, availableWidth / 28));
-      } else if (window.innerWidth < 1024) {
+        optimalSize = Math.max(17, Math.min(19, containerWidth / 35));
+      } else if (windowWidth < 1024) {
         // Tablet large: more generous
-        optimalSize = Math.max(18, Math.min(22, availableWidth / 32));
+        optimalSize = Math.max(18, Math.min(21, containerWidth / 38));
+      } else if (windowWidth < 1440) {
+        // Desktop standard: comfortable reading
+        optimalSize = Math.max(20, Math.min(23, containerWidth / 40));
       } else {
-        // Desktop: optimal reading experience
-        optimalSize = Math.max(19, Math.min(24, availableWidth / 35));
+        // Large desktop: maximize readability
+        optimalSize = Math.max(21, Math.min(26, containerWidth / 42));
       }
 
       setFontSize(optimalSize);
@@ -115,11 +115,11 @@ export function CardContent() {
         {/* Poem with strategically placed photos */}
         <div className="poem-text text-text-primary font-light text-pretty" style={{
           fontSize: `${fontSize}px`,
-          lineHeight: '1.8',
+          lineHeight: fontSize >= 22 ? '1.85' : fontSize >= 20 ? '1.8' : '1.75',
           textAlign: 'justify',
           textJustify: 'inter-word',
           hyphens: 'auto',
-          transition: 'font-size 0.3s ease'
+          transition: 'font-size 0.3s ease, line-height 0.3s ease'
         }}>
           {/* Stanza 0 with Photo 0 (left) */}
           {CARD_CONTENT.photos[0] && (

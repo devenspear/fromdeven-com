@@ -96,7 +96,8 @@ export function EnvelopeAnimation({ onComplete }: EnvelopeAnimationProps) {
           }
           transition={{ delay: 2.2, duration: 0.8, ease: "easeInOut" }}
           onAnimationComplete={() => {
-            setTimeout(() => onComplete(), 800);
+            // Hold for 1 second after opening before dissolving to card
+            setTimeout(() => onComplete(), 1800);
           }}
           className="absolute inset-x-0 top-0 h-1/2 origin-bottom"
           style={{
