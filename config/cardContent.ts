@@ -32,7 +32,7 @@ export const CARD_CONTENT = {
   closing: "With deep appreciation,\n\nDeven & Nancy Jo",
 
   // Photos to be interspersed with text
-  // Position indicates where in the flow (0 = before first stanza, 1 = after first stanza, etc.)
+  // Ordered by filename number from top to bottom
   photos: [
     {
       src: "/card-photos/Crafted1.jpg",
@@ -41,19 +41,19 @@ export const CARD_CONTENT = {
       caption: undefined as string | undefined
     },
     {
-      src: "/card-photos/Crafted3.jpg",
+      src: "/card-photos/Crafted2.jpg",
       alt: "Moments at Crafted",
       position: "right",
       caption: undefined as string | undefined
     },
     {
-      src: "/card-photos/Crafted4.jpg",
+      src: "/card-photos/Crafted3.jpg",
       alt: "Crafted experiences",
       position: "left",
       caption: undefined as string | undefined
     },
     {
-      src: "/card-photos/Crafted5.jpg",
+      src: "/card-photos/Crafted4.jpg",
       alt: "Crafted atmosphere",
       position: "right",
       caption: undefined as string | undefined
