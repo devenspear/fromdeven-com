@@ -113,12 +113,11 @@ export function CardContent() {
         )}
 
         {/* Poem with strategically placed photos */}
-        <div className="poem-text text-text-primary font-light text-pretty" style={{
+        <div className="poem-text text-text-primary font-light" style={{
           fontSize: `${fontSize}px`,
           lineHeight: fontSize >= 22 ? '1.85' : fontSize >= 20 ? '1.8' : '1.75',
           textAlign: 'justify',
           textJustify: 'inter-word',
-          hyphens: 'auto',
           transition: 'font-size 0.3s ease, line-height 0.3s ease'
         }}>
           {/* Stanza 0 with Photo 0 (left) */}

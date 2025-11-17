@@ -240,9 +240,16 @@
   /* Better word spacing for justified text */
   word-spacing: 0.05em;
 
-  /* Prevent widows and orphans */
-  orphans: 3;
-  widows: 3;
+  /* Prevent widows and orphans - increased for better control */
+  orphans: 4;
+  widows: 4;
+
+  /* Better text wrapping */
+  text-wrap: pretty;
+  overflow-wrap: break-word;
+
+  /* Prevent awkward breaks */
+  hanging-punctuation: first last;
 }
 
 /* Disable justification on very small screens to avoid awkward gaps */
@@ -255,11 +262,24 @@
 /* Stanza bottom margin control */
 .poem-text > div {
   margin-bottom: clamp(1.5em, 3vw, 2.5em);
+
+  /* Prevent stanzas from breaking awkwardly */
+  break-inside: avoid;
+  page-break-inside: avoid;
 }
 
 /* Individual line spacing within stanzas */
 .poem-text p {
   margin-bottom: 0.45em;
+
+  /* Prevent single line orphans */
+  orphans: 2;
+  widows: 2;
+
+  /* Better line breaking */
+  word-break: normal;
+  overflow-wrap: break-word;
+  hyphens: manual;
 }
 
 /* Enhanced spacing for larger screens */
