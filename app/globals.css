@@ -250,12 +250,16 @@
 
   /* Prevent awkward breaks */
   hanging-punctuation: first last;
+
+  /* Keep last lines left-aligned to prevent awkward justification */
+  text-align-last: left;
 }
 
-/* Disable justification on very small screens to avoid awkward gaps */
-@media (max-width: 480px) {
+/* Disable justification on small to medium screens to avoid awkward gaps */
+@media (max-width: 1024px) {
   .poem-text {
     text-align: left !important;
+    text-align-last: left !important;
   }
 }
 
