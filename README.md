@@ -7,10 +7,12 @@ A mysterious, high-touch digital experience for delivering personalized thank-yo
 FromDeven.com is an elegant, minimal website that creates a special moment for recipients of personalized notes. Phase 0 is a production-ready proof-of-concept featuring:
 
 - **Landing page** with invite code authentication
+- **Invalid code handling** - Elegant error page with auto-redirect
 - **Beautiful envelope opening animation** with 1-second hold time (respects reduced-motion preferences)
 - **Dynamic route system** - URLs use the invite code (e.g., `/Stacy251116`)
-- **Card experience** with poetry, photos, and smooth dissolve transitions
-- **Dynamic font sizing** - Optimizes for desktop and mobile layouts
+- **Card experience** with poetry stanzas, floating photos, and smooth dissolve transitions
+- **Dynamic font sizing** - Auto-scales from 18px (mobile) to 32px (large desktop)
+- **Smart typography** - Text-align-last prevents orphan line issues
 - **Responsive photo layout** - Polaroid-style images that float with text
 - **Fully responsive** and accessible design
 
@@ -60,12 +62,19 @@ export const CARD_CONTENT = {
   label: "A note from Deven",
   title: "Your Card Title",
   subtitle: "Date or subtitle",
-  body: [
-    "First paragraph...",
-    "Second paragraph...",
+  greeting: "Hi [Name],",
+  stanzas: [
+    "First stanza with *italic* support...",
+    "Second stanza...",
   ],
   closing: "Signature",
-  photos: [...],
+  photos: [
+    {
+      src: "/card-photos/photo.jpg",
+      alt: "Description",
+      position: "left" // or "right"
+    }
+  ],
   theme: { variant: "ivory-gold" }
 }
 ```
@@ -79,8 +88,9 @@ export const CARD_CONTENT = {
 photos: [
   {
     src: "/card-photos/your-image.jpg",
-    caption: "Optional caption",
-    alt: "Descriptive alt text for accessibility"
+    alt: "Descriptive alt text for accessibility",
+    position: "left", // or "right" - controls float direction
+    caption: undefined // Optional caption (not currently displayed)
   }
 ]
 ```
@@ -135,6 +145,13 @@ fromdeven.com/
 - Keyboard accessible (Enter to submit)
 - Fade-out transition when code is accepted (800ms)
 
+### Invalid Code Handling
+- **Error page** displays when code is not found
+- Shows the invalid code attempted
+- Auto-redirects to home after 3 seconds
+- Manual "Go to Home" button for immediate return
+- Smooth animations with Framer Motion
+
 ### Card Experience
 - **Dynamic routes**: URL reflects invite code (`/[code]`)
 - **Route protection**: Direct URL access validates code from URL
@@ -146,15 +163,24 @@ fromdeven.com/
 - **Dissolve transition**: Smooth 1-second crossfade from envelope to card
 - **Reduced motion support**: Respects OS preferences
 - **Dynamic typography**:
-  - Font size auto-adjusts based on viewport (16-26px)
-  - Line height adapts to font size (1.75-1.85)
+  - Font size auto-adjusts based on viewport (18-32px)
+  - Line height adapts to font size (1.85-1.95)
   - Optimal reading measure maintained
+  - Mobile: 18px fixed
+  - Tablet: 20-25px responsive
+  - Desktop: 24-28px responsive
+  - Large desktop: 26-32px responsive
+- **Smart text alignment**:
+  - Justified text on desktop (>1024px)
+  - Last lines left-aligned (prevents orphan line issues)
+  - Left-aligned on tablets and mobile (<1024px)
+  - Widow/orphan control for better line breaks
 - **Responsive photo layout**:
-  - Polaroid-style frames with rotation
-  - Float left/right with text wrapping
-  - Stack vertically on mobile (<480px)
+  - Polaroid-style frames with subtle rotation (-2deg/+2deg)
+  - Float left/right with text wrapping on desktop
+  - Stack vertically centered on mobile (<480px)
   - Scale proportionally: 28-32% of container width
-- **Text justification**: Smart justification with widow/orphan control
+  - Hover effect: scale + lift animation
 - **Semantic HTML**: Proper heading hierarchy and ARIA labels
 
 ## Design System
@@ -176,8 +202,9 @@ fromdeven.com/
 - **Scale**: Dynamic fluid typography
   - Title: `clamp(2rem, 5vw + 1rem, 4.5rem)`
   - Subtitle: `clamp(0.875rem, 0.5vw + 0.75rem, 1.125rem)`
-  - Body: Dynamically calculated (16-26px) based on viewport and container
+  - Body: Dynamically calculated (18-32px) based on viewport and container
   - Greeting: `clamp(1.125rem, 0.75vw + 0.875rem, 1.5rem)`
+  - Line-height: 1.85-1.95 (adapts to font size)
 
 ### Animation Timing
 
