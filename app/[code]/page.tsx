@@ -17,26 +17,20 @@ export default function CardPage() {
   useEffect(() => {
     // Validate the code from the URL parameter
     const code = params.code as string;
-
-    console.log('Validating code:', code);
     const isValid = validateInviteCode(code);
-    console.log('Is valid:', isValid);
 
     if (!code || !isValid) {
       // Show error message instead of redirecting immediately
-      console.log('Setting invalid code state');
       setIsInvalidCode(true);
       setIsAuthorized(false);
 
       // Redirect after 3 seconds
       const timeout = setTimeout(() => {
-        console.log('Redirecting to home');
         router.replace("/");
       }, 3000);
 
       return () => clearTimeout(timeout);
     } else {
-      console.log('Code is valid, showing content');
       setIsInvalidCode(false);
       setIsAuthorized(true);
     }
