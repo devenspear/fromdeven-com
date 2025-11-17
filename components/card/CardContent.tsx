@@ -43,19 +43,19 @@ export function CardContent() {
 
       if (windowWidth < 480) {
         // Mobile: prioritize readability
-        optimalSize = 16;
+        optimalSize = 18;
       } else if (windowWidth < 768) {
         // Tablet small: balanced
-        optimalSize = Math.max(17, Math.min(19, containerWidth / 35));
+        optimalSize = Math.max(20, Math.min(22, containerWidth / 32));
       } else if (windowWidth < 1024) {
         // Tablet large: more generous
-        optimalSize = Math.max(18, Math.min(21, containerWidth / 38));
+        optimalSize = Math.max(22, Math.min(25, containerWidth / 35));
       } else if (windowWidth < 1440) {
         // Desktop standard: comfortable reading
-        optimalSize = Math.max(20, Math.min(23, containerWidth / 40));
+        optimalSize = Math.max(24, Math.min(28, containerWidth / 37));
       } else {
         // Large desktop: maximize readability
-        optimalSize = Math.max(21, Math.min(26, containerWidth / 42));
+        optimalSize = Math.max(26, Math.min(32, containerWidth / 38));
       }
 
       setFontSize(optimalSize);
