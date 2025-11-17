@@ -3,7 +3,7 @@ export const CARD_CONTENT = {
   inviteCode: "Stacy251116",
 
   // Recipient information
-  recipientName: "Stacey",
+  recipientName: "Stacy",
 
   // Card metadata
   label: "A note from Deven & Nancy Jo",
